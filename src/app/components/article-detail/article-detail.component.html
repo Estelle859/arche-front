@@ -1,0 +1,107 @@
+ <!-- <div *ngIf="article"> -->
+    <!-- <h2> {{article.titre | uppercase}} </h2>
+   
+    <ul *ngFor="let aut of auteurs">
+      de  {{ aut.nom }}  {{ aut.prenom }}  
+    </ul>
+
+    <div><span>id : </span>{{article.id}}</div>
+    
+    <div> 
+      <img src="{{article.image}}" alt='article.titre' height="250px" width="200px" alt="Image"> 
+    </div>
+    <div>
+      {{article.prixUnitaire}} €
+    </div>
+
+    <button (click)="goBack()">Ajouter au panier</button> 
+  </div> --> 
+  <mat-card class="mat-card mat-focus-indicator product-page-card" *ngIf="article">
+    <mat-card-title  fxlayout="row" fxalign="center" class=" product-page-card-title" >  {{ article?.titre }}</mat-card-title>
+    <img  mat-card-image="" class="mat-card-image" src="{{article.image}}">
+    <mat-card-content fxlayout="column" fxlayoutalign="space-around center" class="mat-card-content" ng-reflect-fx-layout="column" ng-reflect-fx-layout-align="space-around center" style="flex-direction: column; box-sizing: border-box; display: flex; place-content: center space-around; align-items: center;">
+      
+      <mat-chip-list  class="mat-chip-list" tabindex="0" aria-required="false" aria-disabled="false" aria-invalid="false" aria-multiselectable="false" role="listbox" aria-orientation="horizontal">
+        <div class="mat-chip-list-wrapper">
+          <mat-chip  role="option" class="mat-chip mat-focus-indicator chip mat-elevation-6 mat-primary mat-standard-chip ng-star-inserted" tabindex="-1" aria-disabled="false" style="background-color: rgb(90, 24, 142);">
+          <div class="mat-chip-ripple"></div>   {{article.prixUnitaire}} € </mat-chip>    
+        </div>
+      </mat-chip-list>
+      <mat-form-field>
+        <h4>Quantity</h4>
+        <input matInput type="number" [(ngModel)]="quantity" name="qty" ngInit="1">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions fxlayoutalign="center" class="mat-card-actions" ng-reflect-fx-layout-align="center" style="place-content: stretch center; align-items: stretch; flex-direction: row; box-sizing: border-box; display: flex;">
+      <button  mat-raised-button="" color="primary" >
+        <span class="mat-button-wrapper" (click) = "addToCart(article)"> Add to cart </span>
+        <span matripple="" class="mat-ripple mat-button-ripple" ng-reflect-disabled="false" ng-reflect-centered="false" ng-reflect-trigger="[object HTMLButtonElement]"></span><span class="mat-button-focus-overlay"></span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+    <!-- <mat-card class="product-page-card" *ngIf="article">
+      <mat-card-title
+        class="product-page-card-title"
+        fxLayout="row"
+        fxAlign="center"
+      >
+        {{ article?.titre }}
+      </mat-card-title>
+      <img mat-card-image src="{{article.image}}" />
+      <mat-card-content fxLayout="column" fxLayoutAlign="space-around center">  
+       <mat-chip-list>
+          <mat-chip> 
+          {{article.prixUnitaire}} €
+          </mat-chip>
+        </mat-chip-list> 
+      </mat-card-content>
+      <mat-card-actions fxLayoutAlign="center">
+        <button
+          mat-raised-button
+          color="primary"      
+        >
+          Add to cart
+        </button>
+      </mat-card-actions>   
+    </mat-card> -->
+    <!-- <mat-tab>
+     <div class="drawer-body-previous-titre">
+      <span class="drawer-body-previous-titre-label"> 
+       Titre
+      </span> 
+      <span class="drawer-body-previous-titre-value"> 
+        {{article.titre}}
+      </span> 
+     </div> 
+    </mat-tab>
+
+<mat-tab lebel="CartItem">
+  <div class="drawer-body-space" ></div>
+  <div class="drawer-body">
+    <form [formGroup]="cartItemForm" (ngSubmit)="addItemToCart()">
+      <div>
+        <mat-form-field appearance="outline" color="warn" class="custom-select-option">
+         <mat-label>Quantity</mat-label> 
+         <input matInput type="number"  [(ngModel)]="quantity" name="qty" #iter="ngModel" min="1">
+
+        </mat-form-field>
+      </div>
+      <div drawer-body-button>
+        <div class="new-cart-item-button-style">
+       <div class="mat-button-wrapper-cartItem">
+         <mat-icon class="material-icons-outlined">
+           addToCart
+         </mat-icon>
+       </div>
+      </div>
+
+      </div>
+    </form>
+  </div>
+</mat-tab> -->
+
+  
+
+
+  

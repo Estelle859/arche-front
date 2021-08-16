@@ -1,0 +1,43 @@
+ 
+<!-- <div class="row card-deck">
+    <div class="col-lg-3 col-md-6 mb-4" *ngFor="let article of articles">
+        <div class= "card-text-center text-lg-lef">
+            <div class="card-header">
+                <h3> {{article.titre | uppercase}} </h3>
+            </div>
+            <div class="card-body">
+            <div class="pi-pic">
+                <img src="{{article.image}}" alt='article.titre' height="250px" width="200px" alt="Image"> 
+            </div>
+            <h5 class="card-title">  </h5>
+            <br>
+            <div card-header>
+                <h3>  Prix: {{article.prixUnitaire}} € </h3>
+            </div>
+            <td class="form-group">
+                <label>Qte:</label>
+                <input type="number" [(ngModel)]="article.quantite" ng-init="article.quantite==1">
+            </td>
+            <br>
+            <div class="col-12 padding-0">
+                <button class="btn btn-primary btn-block" click="addToCart(article)">
+                    Add to Cart
+                </button>
+            </div> 
+        </div>   
+    </div>    
+</div> -->
+
+<div class="row">
+    <!-- <div class="col-md-2">
+      <app-filters></app-filters>
+    </div> -->
+  
+    <div class="col-md-8">
+      <app-articles></app-articles>
+    </div>
+  
+    <div class="col">
+      <app-show-panier></app-show-panier>
+    </div>
+  </div>
