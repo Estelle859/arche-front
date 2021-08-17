@@ -11,8 +11,7 @@ import { PanierService } from 'src/app/services/paniers/panier.service';
 })
 export class LignePanierComponent implements OnInit {
   
-
-  public items: LignePanier ;
+  public items: LignePanier[] =[];
  // totalSum: number = 0;
   constructor(private panierService: PanierService, private route: Router) {
 
@@ -27,7 +26,21 @@ export class LignePanierComponent implements OnInit {
     //   //   this.totalSum = this.totalSum + (value.qty * value.prixUnitaire);
     //   // });
     // });  
+    // for( let x = 0; x<sessionStorage.length;x++){
+    //   let session= sessionStorage.getItem( sessionStorage.key(x) ||"");
+    //   let lineCart!:LignePanier;
+    //   lineCart.qty = JSON.parse(session || "").qty;
+    //   lineCart.article= JSON.parse(session || "").article;
+    //   this.items.push(lineCart);
+      
+    //   }
+    //   for( let x = 0; x<this.items.length;x++){
+    //     console.log(this.items[x].article.titre);
+    //     console.log(this.items[x].qty);
+    //   }
     this.items = this.panierService.getItems();
+   
+    
 
   }
   // updateCart(id:any, quantite:any) {

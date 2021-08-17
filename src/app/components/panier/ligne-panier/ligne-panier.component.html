@@ -70,18 +70,24 @@
       <td>{{cart.prixUnitaire | currency:'EUR'}}</td>
       <td>
 
-        <div class="row">
+        <div class="row"> 
+          <div class="col-6">
+            <input type="numer" class=" mx-3 qty_input" value = "{{cart.qty}}"  name="input{{cart.article.id}}" >
+          </div>
+        </div>
+
+        <!-- <div class="row">
           <div class="col-6">
             <input type="number" value="{{cart.qty}}" #quant>
-            <!-- <input type="hidden" value="{{cart.article.id}}" #prod> -->
+             <input type="hidden" value="{{cart.article.id}}" #prod> 
           </div>
-          <!-- <div class="col-6">
+          <div class="col-6">
             <button class="btn btn-info btn-sm" (click)="updateCart(prod,quant)">Update</button>
-          </div> -->
-        </div>
+          </div> 
+        </div> -->
       </td>
       <td>
-        {{cart.qty*cart.prixUnitaire | currency:'EUR'}}
+        {{cart?.qty*cart?.article?.prixUnitaire | currency:'EUR'}}
 
       </td>
       <!-- <td>

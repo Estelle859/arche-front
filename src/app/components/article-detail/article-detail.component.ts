@@ -9,7 +9,7 @@ import { LignePanierService } from 'src/app/services/lignePaniers/ligne-panier.s
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LignePanierComponent } from '../panier/ligne-panier/ligne-panier.component';
 import { PanierService } from 'src/app/services/paniers/panier.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LignePanier } from 'src/app/interfaces/ligne-panier';
 
 @Component({
@@ -20,92 +20,62 @@ import { LignePanier } from 'src/app/interfaces/ligne-panier';
 
 export class ArticleDetailComponent implements OnInit {
 
- article: Article ;
- items:LignePanier;
- auteurs: Auteur[] = [] ;
- quantity = 0;
- montant= 0;
+  article: Article = {};
+  cartItems: LignePanier = {};
+  auteurs: Auteur[]= [];
+  addCartForm: FormGroup;
 
 
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService,
-    private lignePanierService: LignePanierService, 
-    private panierService: PanierService,   
+    private lignePanierService: LignePanierService,
+    private panierService: PanierService,
     private location: Location,
     public fb: FormBuilder,
 
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.initForm();
     this.getArticle();
-   }
+
+  }
 
   getArticle(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.articleService.getArticleById(id)
-      .subscribe(res => {    
+      .subscribe(res => {
         this.article = res;
+        this.auteurs = res.auteurs?? [];
       });
+
+
   }
- 
-  addToCart(item:Article) {
-    
-      let local_storage;
-      let itemsInCart = []
 
-      this.items = {
-      id:item.id,
-      article: item,
-      qty: 1,     
-      addedOn:new Date ,
-      prixUnitaire:item.prixUnitaire
-      
-    }
+  initForm() {
+    this.addCartForm = this.fb.group({
+      qty: 0
+    });
+  }
+  onSubmitForm() {
+    console.log('Your order has been submitted', this.addCartForm.value);    
+    const formValue = this.addCartForm.value;
+    this.cartItems.qty = formValue.qty;   
+    this.cartItems.article = this.article;    
+    this.addArticle(this.cartItems);
+  }
 
-    if(localStorage.getItem('cart')  == null){
-      local_storage =[];
-      console.log("LOCAL STORAGE NULL",JSON.parse(localStorage.getItem('cart')||'{}'));
-      itemsInCart.push(this.items);
-      localStorage.setItem('cart', JSON.stringify(itemsInCart));
-      console.log('Pushed first Item: ', itemsInCart);
+  addArticle(cartItem: LignePanier) {
+    console.log("quantity",cartItem.qty);
+    if (this.cartItems.qty == 0) {
+      alert(" veuillez saisir une quantité supérieure à 0 ");
+      return
     }
     else
-    {
-      console.log("je suis sans null")
-      local_storage = JSON.parse(localStorage.getItem('cart') || '{}');
-      console.log("LOCAL STORAGE HAS ITEMS",JSON.parse(localStorage.getItem('cart') || '{}'));
-      for(var i in local_storage)
-      {
-       
-        console.log("article id, local id",this.items.article.id,local_storage[i].article.id);
-        if(this.items.article.id == local_storage[i].article.id)
-        {
-          console.log("je suis sur articl id egal local id and qty is ", local_storage[i].quantity)
-          local_storage[i].quantity += 1;
-          console.log("Quantity for "+i+" : "+ local_storage[i].quantity);
-          console.log('same article! index is ', i); 
-          this.items =null as any;
-          break;  
-        }
-    }
-    if(this.items){
-      itemsInCart.push(this.items);
-    }
-    local_storage.forEach(function (item:any){
-      itemsInCart.push(item);
-    })
-    localStorage.setItem('cart', JSON.stringify(itemsInCart));
-  
- 
+      this.panierService.addToCart(cartItem);
   }
-
-
-}
-
- 
-
 
 
 }
