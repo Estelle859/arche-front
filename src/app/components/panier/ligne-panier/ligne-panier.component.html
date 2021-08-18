@@ -20,7 +20,7 @@
       <td>
         <div class="row">
           <div class="col-6">
-            <input type="number" class=" mx-3 quantity_input" value = "{{cartLine?.qty}}"  name="input{{cartLine?.article?.id}}" (change)="updateAmount(cartLine?.article?.id!,$event)"> 
+            <input type="number" class=" mx-3 quantity_input" value = "{{cartLine?.qty}}"  name="input{{cartLine?.article?.id}}" (change)=" updateQuantity(cartLine?.article?.id!,$event)"> 
           </div>       
         </div> 
      </td>
@@ -38,7 +38,7 @@
 
   <div class="row">
     
-    <div class="col-9">Total Sum : "{{total}}"</div>
+    <div class="col-9">Total Sum : {{total}}</div>
 
     <div class="offset-1 col-2"><button type="button" class="btn btn-primary align-right" >Checkout <i
           class="fa fa-angle-right"></i></button></div>

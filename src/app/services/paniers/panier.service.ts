@@ -41,9 +41,22 @@ export class PanierService {
       lineCart = JSON.parse(session || "");
       this.cart.push(lineCart);
     }
+    return this.cart;
+  
+  } 
+  deleteItemStorage(index:number){
+    sessionStorage.removeItem(sessionStorage.key(index) || "");
+    location.reload();
   
   }
+  updateQuantity(inputId:number, event:any){
+    var inputValue:number = event.target.value;
+    let cartlineJSON:any
+    cartlineJSON = JSON.parse( sessionStorage.getItem(inputId.toString()) || "");
+    cartlineJSON["qty"] = inputValue;
+    console.log(cartlineJSON);
+    sessionStorage.setItem(inputId.toString(), JSON.stringify(cartlineJSON));
+    location.reload();
+    }
 
-
- 
 }

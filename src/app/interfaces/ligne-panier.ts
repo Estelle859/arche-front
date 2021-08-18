@@ -6,7 +6,6 @@ export interface LignePanier {
     addedOn?: Date;
     qty?: number;  
     article?: Article; 
-    //prixUnitaire?: number;
     // libelle: String; 
     //tva:number;
     // prixttc:number;

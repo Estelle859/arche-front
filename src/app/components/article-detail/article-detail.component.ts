@@ -24,6 +24,7 @@ export class ArticleDetailComponent implements OnInit {
   cartItems: LignePanier = {};
   auteurs: Auteur[]= [];
   addCartForm: FormGroup;
+  prixValue:String;
 
 
   constructor(
@@ -49,8 +50,8 @@ export class ArticleDetailComponent implements OnInit {
       .subscribe(res => {
         this.article = res;
         this.auteurs = res.auteurs?? [];
+        this.prixValue = this.article?.prixUnitaire?.toString().replace(".",",") ?? '';
       });
-
 
   }
 
@@ -67,20 +68,17 @@ export class ArticleDetailComponent implements OnInit {
     this.addArticle(this.cartItems);
   }
 
-  // addArticle(cartItem: LignePanier) {
-  //   console.log("quantity",cartItem.qty);
-  //   if (this.cartItems.qty == 0) {
-  //     alert(" veuillez saisir une quantité supérieure à 0 ");
-  //     return
-  //   }
-  //   else
-  //   console.log("quantity",cartItem.qty);
-  //     this.panierService.addToCart(cartItem);
-  // }
+
   addArticle(cartLine:LignePanier){
     console.log("quantity",cartLine.qty);
     if(sessionStorage.getItem(cartLine?.article?.id?.toString()||'') != null){
-      alert("vous avez déjà ajouté cet article à votre panier "); return 
+      alert("vous avez déjà ajouté cet article à votre panier ");
+      const session = sessionStorage.getItem(cartLine?.article?.id?.toString()||'');
+      console.log(session);
+      cartLine.qty  =  JSON.parse(session || "").qty +  cartLine.qty;
+      sessionStorage.setItem(cartLine?.article?.id?.toString()||'', JSON.stringify(cartLine));
+      location.reload();
+      return ;
     }
     if(this.cartItems.qty == 0 ){
       alert(" veuillez saisir une quantité supérieure à 0 ");
