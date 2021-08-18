@@ -67,14 +67,29 @@ export class ArticleDetailComponent implements OnInit {
     this.addArticle(this.cartItems);
   }
 
-  addArticle(cartItem: LignePanier) {
-    console.log("quantity",cartItem.qty);
-    if (this.cartItems.qty == 0) {
+  // addArticle(cartItem: LignePanier) {
+  //   console.log("quantity",cartItem.qty);
+  //   if (this.cartItems.qty == 0) {
+  //     alert(" veuillez saisir une quantité supérieure à 0 ");
+  //     return
+  //   }
+  //   else
+  //   console.log("quantity",cartItem.qty);
+  //     this.panierService.addToCart(cartItem);
+  // }
+  addArticle(cartLine:LignePanier){
+    console.log("quantity",cartLine.qty);
+    if(sessionStorage.getItem(cartLine?.article?.id?.toString()||'') != null){
+      alert("vous avez déjà ajouté cet article à votre panier "); return 
+    }
+    if(this.cartItems.qty == 0 ){
       alert(" veuillez saisir une quantité supérieure à 0 ");
-      return
+    return 
     }
     else
-      this.panierService.addToCart(cartItem);
+    sessionStorage.setItem(cartLine?.article?.id?.toString()||'', JSON.stringify(cartLine));
+    location.reload();
+  
   }
 
 

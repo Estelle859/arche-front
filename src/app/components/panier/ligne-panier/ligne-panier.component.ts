@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Article } from 'src/app/interfaces/article';
 import { LignePanier } from 'src/app/interfaces/ligne-panier';
 import { LignePanierService } from 'src/app/services/lignePaniers/ligne-panier.service';
 import { PanierService } from 'src/app/services/paniers/panier.service';
@@ -10,61 +11,49 @@ import { PanierService } from 'src/app/services/paniers/panier.service';
   styleUrls: ['./ligne-panier.component.css']
 })
 export class LignePanierComponent implements OnInit {
+
+public cart:LignePanier[]= [];
+public total:0 ;
   
-  public items: LignePanier[] =[];
- // totalSum: number = 0;
-  constructor(private panierService: PanierService, private route: Router) {
+constructor(private panierService: PanierService, private route: Router) { }
 
+ngOnInit(): void {  
+    this.getArticlesCart(); 
+    console.log("length",this.cart.length) ;
+    for(var i=0; i<this.cart.length; i++)
+    {
+      console.log(this.cart[i].qty)
+      this.total += ((this.cart[i].qty ?? 0) * 100 * (this.cart[i]?.article?.prixUnitaire ?? 0)/100);
+    }
+    console.log("total",this.total);
+  //this.panierService.getArticlesCart();
+}
+
+getArticlesCart(){
+  
+  for( let x = 0; x<sessionStorage.length;x++){
+    console.log("CART ITEMS",sessionStorage.length,x)
+    console.log("CART ITEMS OBJECT",Object.keys(sessionStorage));
+    let session= sessionStorage.getItem( sessionStorage.key(x) ||"");  
+    let lineCart:LignePanier;
+    lineCart = JSON.parse(session || "");
+    this.cart.push(lineCart);
   }
 
-  ngOnInit() {
-    // this.panierService.getItems().subscribe((res:LignePanier) => {
-    //   this.items = res;
-    //   console.log("getting item from cart", res)
-    //   // this.cartItems.forEach(value => {
+}
+deleteItemStorage(index:number){
+  sessionStorage.removeItem(sessionStorage.key(index) || "");
+  location.reload();
 
-    //   //   this.totalSum = this.totalSum + (value.qty * value.prixUnitaire);
-    //   // });
-    // });  
-    // for( let x = 0; x<sessionStorage.length;x++){
-    //   let session= sessionStorage.getItem( sessionStorage.key(x) ||"");
-    //   let lineCart!:LignePanier;
-    //   lineCart.qty = JSON.parse(session || "").qty;
-    //   lineCart.article= JSON.parse(session || "").article;
-    //   this.items.push(lineCart);
-      
-    //   }
-    //   for( let x = 0; x<this.items.length;x++){
-    //     console.log(this.items[x].article.titre);
-    //     console.log(this.items[x].qty);
-    //   }
-    this.items = this.panierService.getItems();
-   
-    
-
+}
+updateAmount(inputId:number, event:any){
+  var inputValue:number = event.target.value;
+  let cartlineJSON:any
+  cartlineJSON = JSON.parse( sessionStorage.getItem(inputId.toString()) || "");
+  cartlineJSON["qty"] = inputValue;
+  console.log(cartlineJSON);
+  sessionStorage.setItem(inputId.toString(), JSON.stringify(cartlineJSON));
+  location.reload();
   }
-  // updateCart(id:any, quantite:any) {
-  //   this.lp.updateCartItem(id.value, quantite.value).subscribe((res: LignePanier[]) => {
-  //     this.cartItems = res;
-  //     this.cartItems.forEach(value => {
-  //       this.totalSum = this.totalSum + (value.qty * value.prixUnitaire);
-  //     });
-  //   });
-  // }
-  // deleteItem(id:any) {
-  //   this.lp.deleteCartItem(id.value).subscribe((res: LignePanier[]) => {
-  //     this.cartItems = res;
-  //     this.cartItems.forEach(value => {
-  //       this.totalSum = this.totalSum + (value.qty * value.prixUnitaire);
-  //     });
-  //   });
-  // }
-
-  // placeOrder() {
-  //   this.lp.placeOrder().subscribe(res => {
-  //     console.log(res);
-  //   });
-  //   this.route.navigate(['/home']);
-  // }
 
 }

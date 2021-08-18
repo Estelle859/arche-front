@@ -49,13 +49,13 @@ export class SearchBarComponent implements OnInit {
     if (val === '' || val === null) {
       return [];
     }
-    return val ? this.allArticles.filter(s => s.titre.toLowerCase().indexOf(val.toLowerCase()) != -1)
+    return val ? this.allArticles.filter(s => s?.titre?.toLowerCase().indexOf(val.toLowerCase()) != -1)
       : this.allArticles;
   }
 
-  displayFn(art: Article) {    
-    let k = art ? art.titre : art;
-    console.log("display k", k);
+  displayFn(art: any) {    
+    let k = art ? art.titre ?? "" : "";
+   // console.log("display k", k);
     return k;
   }
 

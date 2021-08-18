@@ -1,55 +1,3 @@
-<!--   
-<div class="cart-item">
-    <span>{{ cartItem.titre }}</span> x
-    <span>{{ cartItem.quantite }}</span>:
-    <strong>{{ (cartItem.quantite * cartItem.prixUnitaire) | currency:'EUR' }}</strong>
-  </div> -->
-  <!-- <div class="mx-5" style="margin-top: 5rem;">
-    <style>
-        table * {
-            color: white;
-            border: none;
-        }
-    </style>
-    <h1>Cart</h1>
-    <table class="table mt-5">
-        <thead style="background-color: #fff2; border: none;" class="mb-5">
-          <tr>
-            <th scope="col">Article</th>
-            <th scope="col">Prix</th>
-            <th scope="col">Quantité</th>    
-            <th scope="col">Montant</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of cartItems; let i = index">
-               <td class="article-col"> 
-                 <img class="card-img-top img-responsive" 
-                   src="{{item.article.image}}"
-                   style="width: 80px; height: 100px; width:fit-content" at="">
-                   <div class="title-col">
-                    <td scope="row" routerLink="/articles/{{item.id}}">{{item.article.titre}}</td>
-                    <td>${{item.article.prixUnitaire | number: '1.2-2'}}</td>
-                  </div>
-               </td>
-  -->
-              <!-- <td class="quantite-col" >
-                <div class="quantite">
-                  <imput type="number" [(ngModel)]="item-qte" (change)="calcul()"> 
-                </div>
-              </td>                 
-              <td class="total-col">{{item.prixUnitaire * item.quantite}}</td> 
-              <td> 
-                <a class="btn btn-sm btn-danger text-white ml-1" click="remove(i)">
-                  <i class="fa fa-trash"></i>
-                </a> 
-              </td>>            
-                           -->
-            <!-- </tr>
-        </tbody> >
-    </table>
-</div> -->
-
 <div class="container">
   <br>
   <a routerLink="/home" class="btn btn-primary"><i class="fa fa-angle-left"></i> Continue Shopping</a><br>
@@ -63,44 +11,38 @@
         <th></th>
       </tr>
     </thead>
-    <tr *ngFor="let cart of items">
+    <tr *ngFor="let cartLine of cart;index as i">
       <td>
-        {{cart.article.titre}}
+        {{cartLine?.article?.titre}}
       </td>
-      <td>{{cart.prixUnitaire | currency:'EUR'}}</td>
+    
+      <td>{{cartLine?.article?.prixUnitaire | currency:'EUR'}}</td>
       <td>
-
-        <div class="row"> 
+        <div class="row">
           <div class="col-6">
-            <input type="numer" class=" mx-3 qty_input" value = "{{cart.qty}}"  name="input{{cart.article.id}}" >
-          </div>
-        </div>
-
-        <!-- <div class="row">
-          <div class="col-6">
-            <input type="number" value="{{cart.qty}}" #quant>
-             <input type="hidden" value="{{cart.article.id}}" #prod> 
-          </div>
-          <div class="col-6">
-            <button class="btn btn-info btn-sm" (click)="updateCart(prod,quant)">Update</button>
-          </div> 
-        </div> -->
-      </td>
+            <input type="number" class=" mx-3 quantity_input" value = "{{cartLine?.qty}}"  name="input{{cartLine?.article?.id}}" (change)="updateAmount(cartLine?.article?.id!,$event)"> 
+          </div>       
+        </div> 
+     </td>
       <td>
-        {{cart?.qty*cart?.article?.prixUnitaire | currency:'EUR'}}
+        {{  (cartLine?.qty ?? 0) * 100 * (cartLine?.article?.prixUnitaire ?? 0)/100 }}
 
       </td>
-      <!-- <td>
-        <button class="btn btn-info btn-sm" (click)="deleteItem(prod)">Delete</button>
-      </td> -->
+      <td> 
+        <a class="btn btn-sm btn-danger text-white ml-1" (click)="deleteItemStorage(i)">
+          <i class="fa fa-trash"></i>
+        </a> 
+      </td> 
     </tr>
-  </table>
-<!-- 
+  </table> 
+
   <div class="row">
-    <div class="col-9">Total Sum : {{totalSum | currency:'EUR'}}</div>
-    <div class="offset-1 col-2"><button type="button" class="btn btn-primary align-right" (click)="placeOrder()">Checkout <i
+    
+    <div class="col-9">Total Sum : "{{total}}"</div>
+
+    <div class="offset-1 col-2"><button type="button" class="btn btn-primary align-right" >Checkout <i
           class="fa fa-angle-right"></i></button></div>
 
-  </div> -->
+  </div> 
 
 </div>
