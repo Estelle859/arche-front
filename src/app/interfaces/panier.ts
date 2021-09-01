@@ -1,12 +1,12 @@
 import { Article } from "./article";
-import { Client } from "./client";
+import { User } from "./user";
 import { LignePanier } from "./ligne-panier";
 
 export interface Panier {
     id?: number;
     addedOn?  : Date;  
     article? : Article;
-    client? : Client;
+    user? : User;
     nbrArticle? : number; 
     montant? : number;
     lPaniers? : Array <LignePanier> ;

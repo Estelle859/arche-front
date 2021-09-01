@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar>  
     <button mat-icon-button aria-label="Home button" routerLink="/home">
       <mat-icon>home</mat-icon>    
     </button>
@@ -9,9 +9,13 @@
     <span class="spacer"></span> 
     <button mat-icon-button aria-label="Login button" routerLink="/login">        
         <mat-icon>account_circle</mat-icon>
-    </button>  
+    </button>   
     <span class="spacer"></span> 
-    <button  mat-icon-button aria-label="Checkout button" routerLink="/panier">    
-        <mat-icon>shopping_cart</mat-icon>
+    <button  mat-icon-button aria-label="Cart button" routerLink="/panier">    
+        <mat-icon>shopping_cart</mat-icon>      
+    </button>
+    <span class="spacer"></span> 
+    <button  mat-icon-button aria-label="Logout button" *ngIf="authService.isUserLoggedIn()" routerLink="/logout">        
+        <mat-icon> exit_to_app </mat-icon>
     </button>
   </mat-toolbar>

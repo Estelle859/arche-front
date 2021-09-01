@@ -1,0 +1,15 @@
+.login-card{
+    margin-top: 2em auto;
+    width: 40%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.main-div{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }   
+.mat-form-field {   
+    display: block;
+}

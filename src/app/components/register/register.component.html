@@ -1,0 +1,82 @@
+
+<div>
+  <app-navbar></app-navbar>
+</div>
+<div class="header" fxLayout="column" fxLayoutAlign="center center">
+  <app-header></app-header> 
+</div>
+<div class="main-div">
+  <mat-card class="register-card">
+      <mat-card-header>
+        <mat-card-title>Register</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="registerForm" autocomplete="off" novalidate  fxLayout="column wrap"
+          fxLayoutAlign="center center" fxLayoutGap="10px">
+          <table class="register-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="register-full-width">
+                  <input matInput placeholder="Nom"  formControlName="nom" >
+                  <mat-error *ngIf="hasError('nom', 'required')">Nom is required</mat-error>
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field class="register-full-width">
+                  <input matInput placeholder="Prenom"  formControlName="prenom" >
+                  <mat-error *ngIf="hasError('prenom', 'required')">Prenom is required</mat-error>
+                </mat-form-field>
+              </td>
+            </tr>
+               
+            <tr>
+              <td>
+                <mat-form-field class="register-full-width">
+                  <input matInput placeholder="Adresse" type="adresse" formControlName="adresse" >
+                  <mat-error *ngIf="hasError('adresse', 'required')">Adresse is required</mat-error>
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field class="register-full-width">
+                  <input matInput placeholder="Téléphone n°" formControlName="telephone" >
+
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field class="register-full-width">
+                <input matInput placeholder="Email" formControlName="email" >
+                <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>  
+              </mat-form-field>
+              </td>
+            </tr>
+                        
+              <tr>
+              <td>
+                <mat-form-field class="register-full-width">
+                  <input matInput placeholder="Motdepasse"  formControlName="motdepasse" >
+                  <mat-error *ngIf="hasError('motdepasse', 'required')">Motdepasse is required</mat-error>
+                </mat-form-field>
+              </td>
+            </tr>
+        
+      </table>
+      </form>
+
+      </mat-card-content>
+     <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!registerForm.valid" (click)="createUser(registerForm.value)">Create</button>
+      <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button> 
+
+      </mat-card-actions> 
+    </mat-card>
+</div>
+
+<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+  <app-footer></app-footer>
+</div> 

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Article } from 'src/app/interfaces/article';
-import { Client } from 'src/app/interfaces/client';
+import { User } from 'src/app/interfaces/user';
 import { LignePanier } from 'src/app/interfaces/ligne-panier';
 import { environment } from 'src/environments/environment';
 

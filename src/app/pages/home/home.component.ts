@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Article } from 'src/app/interfaces/article';
 import { ArticleService } from 'src/app/services/articles/article.service';
 import { LignePanierService } from 'src/app/services/lignePaniers/ligne-panier.service';
-import { MessengerService } from 'src/app/services/messenger.service';
 
 
 @Component({
@@ -15,8 +14,8 @@ export class HomeComponent implements OnInit {
   
   articles: Article[] = [];
  
-  constructor(private articleService: ArticleService,
-    private lignePanierService: LignePanierService) { }
+  constructor(private articleService: ArticleService
+  ) { }
 
   ngOnInit() {
     this.getArticles();
@@ -24,13 +23,11 @@ export class HomeComponent implements OnInit {
 
   getArticles(): void {
     this.articleService.getArticles()
-      .subscribe(res => {
-        // this.articles = res.slice(1, 5);
+      .subscribe(res => {       
         this.articles= res;
         this.articleService.articlesData = res;
       });
   }
-
   
     onSelectedOption(e: any) {
       this.getFilteredExpenseList();
@@ -47,14 +44,7 @@ export class HomeComponent implements OnInit {
         console.log("articlesData",this.articles);
       }
   
-      //console.log(this.articles);
     }
 
-    // addToCart(e:any) {
-    //   console.log("JE VIENS D AJOUTER CART",e)
-
-    //   this.lignePanierService.addToCart(e).subscribe(res => {
-       
-    //   })
-    // }
+   
 }

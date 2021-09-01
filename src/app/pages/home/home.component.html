@@ -1,26 +1,36 @@
+<div>
+  <app-navbar></app-navbar>
+</div>
+<div class="header" fxLayout="column" fxLayoutAlign="center center">
+  <app-header></app-header> 
+</div>
 <div style="margin:auto; width: 70%; margin-top: 30px;">
   <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
+</div> 
+<div>
+  <h2 style="text-align:center">Selected Books</h2>
+  <div class="articles-menu">
+    <a *ngFor="let article of articles" >
+        {{article.titre}}
+      <img src="{{article.image}}"  height="200px"
+              width="150px" alt="Image"> 
+        <p class="card-text "> {{article.prixUnitaire}}€</p> 
+      <button class="btn btn-primary" type="submit" routerLink="/detail/{{article.id}}">
+        ajouter au panier
+      </button>
+    </a>       
+  </div> 
 </div>
-<h2 style="text-align:center">Selected Books</h2>
-<div class="articles-menu">
-  <a *ngFor="let article of articles" routerLink="/detail/{{article.id}}">
-   {{article.titre}}
-  <img src="{{article.image}}"  height="200px"
-            width="150px" alt="Image"> 
-  <p class="card-text "> {{article.prixUnitaire}}€</p> 
-  </a>
-  <br>
+<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+  <app-footer></app-footer>
 </div>
 
-<!-- <div class="container">
-  <br>
-  <div class="row">
-    <div class="col-3 align-left" *ngFor="let article of articles">
-      <app-article [article]="article" (productAddToCart)="addToCart($event)">Loading...</app-article>
-    </div>
-    
-  </div>
-</div> -->
+
+
+
+
+
+
 
 
 

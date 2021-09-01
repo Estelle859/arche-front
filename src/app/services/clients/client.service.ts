@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Adresse } from 'src/app/interfaces/adresse';
-import { Client } from 'src/app/interfaces/client';
+import { Client } from 'src/app/interfaces/user';
 
 
 @Injectable({

@@ -1,5 +1,4 @@
 import { Article } from "./article";
-import { Panier } from "./panier";
 
 export interface LignePanier {
     id?: number;

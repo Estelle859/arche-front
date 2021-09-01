@@ -9,7 +9,9 @@ import { Article } from 'src/app/interfaces/article';
 
 
 let itemsInCart = [];
-let cart = [];
+let carts:Panier[] = [];
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +32,11 @@ export class PanierService {
 
   constructor() { }
 
-  addToCart(cartItem: LignePanier) {   
+  addToCart(art: Article) { 
+    
+   }
   
-  }
-  getArticlesCart(){  
-  
+  getArticlesCart(){    
     for( let x = 0; x<sessionStorage.length;x++){   
       let session= sessionStorage.getItem( sessionStorage.key(x) ||"");  
       let lineCart:LignePanier;

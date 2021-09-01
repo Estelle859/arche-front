@@ -9,19 +9,20 @@ import { ArticleDetailComponent } from './components/article-detail/article-deta
 import { HomeComponent } from './pages/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './pages/navbar/navbar.component';
-import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
+import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatChipsModule, MatDialogModule, MatFormFieldModule,  MatIconModule, MatInputModule, MatMenuModule, MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatTableModule, MatToolbarModule } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ArticleService } from './services/articles/article.service';
 import { SearchBarComponent } from './pages/search-bar/search-bar.component';
-import { AddPanierComponent } from './components/panier/add-panier/add-panier.component';
+import { ValiderPanierComponent } from './components/panier/valider-panier/valider-panier.component';
 import { LignePanierComponent } from './components/panier/ligne-panier/ligne-panier.component';
-import { ShowPanierComponent } from './components/panier/show-panier/show-panier.component';
 import { ArticleComponent } from './components/article/article.component';
-
-
-
+import { FooterComponent } from './pages/footer/footer.component';
+import { HeaderComponent } from './pages/header/header.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -32,9 +33,13 @@ import { ArticleComponent } from './components/article/article.component';
     NavbarComponent,
     SearchBarComponent,
     LignePanierComponent,
-    AddPanierComponent,
-    ShowPanierComponent,
-    ArticleComponent,
+    ValiderPanierComponent,  
+    ArticleComponent,   
+    FooterComponent,
+    HeaderComponent,
+    LoginComponent,
+    RegisterComponent,
+    LogoutComponent,
     
   ],
   imports: [
@@ -45,15 +50,20 @@ import { ArticleComponent } from './components/article/article.component';
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
-    MatIconModule,
+    MatIconModule,  
     MatSelectModule,
     MatToolbarModule,
     BrowserAnimationsModule,  
     ReactiveFormsModule, 
     MatInputModule,
-    MatAutocompleteModule,  
+    MatAutocompleteModule,
     MatFormFieldModule,
     MatSidenavModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,  
+    MatTableModule,
+    MatToolbarModule, 
+    MatMenuModule,
  
   ],
   providers: [ArticleService],
