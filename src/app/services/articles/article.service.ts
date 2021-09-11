@@ -18,8 +18,6 @@ export class ArticleService {
 
   public list: Article[] = [];
 
-
-
   constructor(private http: HttpClient) {
   }
 
@@ -32,20 +30,14 @@ export class ArticleService {
 
   filteredListOptions() {
     let articles = this.articlesData;
-    console.log("ARTCILES", articles);
         let filteredPostsList = [];
-        for (let article of articles) {
-          console.log("this.searchOption", this.searchOption);
-            for (let options of this.searchOption) {
-              console.log("this.option", options);
-                if (options.titre === article.titre) { 
-                  console.log("egale");                 
-                  filteredPostsList.push(article);
-                  console.log("filteredPostsList",filteredPostsList); 
+        for (let article of articles) {    
+            for (let options of this.searchOption) {              
+                if (options.titre === article.titre) {                                
+                  filteredPostsList.push(article); 
                 }
             }
         }
-        console.log("filteredPostsList",filteredPostsList.length);
         return filteredPostsList;
   }
 }

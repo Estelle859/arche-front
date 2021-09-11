@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/interfaces/user';
+import { Client } from 'src/app/interfaces/client';
 
 @Injectable({
   providedIn: 'root'
@@ -9,26 +9,28 @@ import { User } from 'src/app/interfaces/user';
 export class UserService {  
  
     router: any;
-    url = 'http://localhost:8080/api/user/';
+    url = 'http://localhost:8080/api/client/';
 
     constructor(private http: HttpClient) { 
     } 
 
-    public getUser(): Observable<User> {
-      return this.http.get<User>(this.url + 'getUser');
+    public getUser(): Observable<Client> {
+      return this.http.get<Client>(this.url + 'getUser');
     } 
     getAll() {
-      return this.http.get<User[]>(this.url +'all');
+      return this.http.get<Client[]>(this.url +'all');
     }
 
     delete(id: number) {
         return this.http.delete(this.url +id);
     }  
 
-    register(user: User) {
+    register(user: Client) {
       console.log("registraion done");
-        return this.http.post(this.url +`/add`, user);
+        return this.http.post(this.url +`add`, user);
     }  
+
+  
 
   
 }

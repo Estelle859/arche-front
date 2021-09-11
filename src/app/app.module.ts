@@ -22,7 +22,9 @@ import { FooterComponent } from './pages/footer/footer.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { LogoutComponent } from './components/logout/logout.component';
+import { AuthenticationService } from './services/authentication/authentication.service';
+import { AuthGaurdService } from './services/authentication/auth-gaurd.service';
+import { PaiementComponent } from './components/paiement/paiement.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
-    LogoutComponent,
+    PaiementComponent,
+  
     
   ],
   imports: [
@@ -66,7 +69,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     MatMenuModule,
  
   ],
-  providers: [ArticleService],
+  providers: [ArticleService,AuthGaurdService, AuthenticationService,],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,57 +1,109 @@
-<!-- <ul>    
-    <li *ngIf="!(isLoggedIn | async)" (click)="authService.login()">
-      <a>Login</a>
-    </li>
-    <li *ngIf="(isLoggedIn | async)" (click)="authService.logout()">
-      <a>Logout</a>
-    </li>
-</ul> -->
-<!-- 
-<h1>Hi {{currentUser.nom}}!</h1> -->
-
-
-<p>You're logged in !!</p> 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">Checkout Page
-        <span style="float: right;"><strong style="color: black">ORDER NO:- 1001</strong></span>
-        </div>
-        <div class="cart-body">
-          <table class="table table-striped">
-            <thead class="thead-dark">
-              <tr>
-                <td>S.No</td>
-                <td>Product</td>
-                <td>Quantity</td>
-                <td>Price</td>
-                <td>Total</td>
-              </tr>
-            </thead>
-            <tbody>                
-                <tr *ngIf="checkout == null">
-                    <td colspan="5" class="text-center"><h4>Your checkout is empty</h4></td>
-                  </tr>
-              <tr *ngFor="let chkdata of checkout; let i = index">
-                <td>{{ i+1 }}</td>
-                <td>{{ chkdata?.article?.titre }}</td>
-                <td><input type="number" class="form-control" value="{{ chkdata?.qty }}" min="1" ></td>
-                <td><input type="number" class="form-control" value="{{ chkdata?.article?.prixUnitaire}}"></td>
-                <td><input type="number" class="form-control" value="{{  (chkdata?.qty ?? 0) * 100 * (chkdata?.article?.prixUnitaire ?? 0)/100 }}" ></td>
-              </tr>
-            </tbody>            
-          </table>
-          <div style="float: right" class="mr-5">
-            <span>Total</span>
-            <input type="number" class="form-control" value="{{ total }}" readonly> 
-            <button class="btn btn-outline-primary btn-md mt-5 mb-3" (click)="onCheckout()">Proceed To Pay</button> 
-          </div>
-     
-        </div>
-      </div>
+<div>
+  <app-navbar></app-navbar>
+</div>
+<div class="header" fxLayout="column" fxLayoutAlign="center center">
+  <app-header></app-header> 
+</div>
+<div class="col-md-6" *ngIf="mode==0">
+  <form #f="ngForm" (ngSubmit)="onSaveClient(f.value)">
+    <div class="form-group">
+      <label class="control-label">Nom:</label>
+      <input type="text" name="nom" ngModel class="form-control" [(ngModel)]="client.nom">
     </div>
-  </div>
+    <div class="form-group">
+      <label class="control-label">Prenom:</label>
+      <input type="text" name="prenom" ngModel class="form-control" [(ngModel)]="client.prenom">
+    </div>
+    <div class="form-group">
+      <label class="control-label">Adresse:</label>
+      <input type="text" name="adresse" ngModel class="form-control" [(ngModel)]="client.adresses">
+    </div>
+      <div class="form-group">
+        <label class="control-label">N° Telephone:</label>
+        <input type="text" name="telephone" ngModel class="form-control" [(ngModel)]="client.telephone">
+      </div>
+      <div class="form-group">
+        <label class="control-label">Email:</label>
+        <input type="text" name="email" ngModel class="form-control" [(ngModel)]="client.email">
+      </div>
+     
+   
+    <button type="submit" class="btn btn-primary">Next</button>
+  </form>
+</div>
+ <div class="panel {{panelStyle}}" *ngIf="mode==1">
+  <div class="panel-heading">Récap de votre commande</div>
+  <br>
+  <div class="panel-body">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label>Nom du Client :</label>
+        <label>{{commandeService.commande?.client?.nom}}</label>
+      </div>
+       <div class="form-group">
+        <label>Prenom du Client :</label>
+        <label>{{commandeService.commande?.client?.prenom}}</label>
+      </div>
+      <div class="form-group">
+        <label>Adresse Client :</label>
+        <label>{{commandeService.commande?.client?.adresses}}</label>
+      </div>
+      <div class="form-group">
+        <label>Tél Client :</label>
+        <label>{{commandeService.commande?.client?.telephone}}</label>
+      </div>
+      <div class="form-group">
+        <label>Email :</label>
+        <label>{{commandeService.commande?.client?.email}}</label>
+      </div>
+      
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <label>Order ID :</label>
+        <label>{{commandeService.commande.id}}</label>
+      </div>
+      <div class="form-group">
+        <label>Order Date :</label>
+        <label>{{commandeService.commande.dateCommande}}</label>
+      </div>
+    </div> 
+
+  </div> 
+  <div class="panel-body">
+    <table class="table table-striped">
+      <tr>
+        <th>ID</th>
+        <th>Désignation</th>
+        <th>Quantité</th>
+        <th>Prix</th>
+        <th>Total</th>
+      </tr>
+      <tr *ngIf="checkout == null">
+        <td colspan="5" class="text-center"><h4>Your checkout is empty</h4></td>
+      </tr>
+      <tr *ngFor="let chkdata of checkout; let i = index">
+        <td>{{ i+1 }}</td>
+        <!-- <td>{{chkdata.id}}</td> -->
+        <td>{{chkdata.article?.titre}}</td>
+        <td>{{chkdata.qty|number:'0.2'}}</td>
+        <td>{{chkdata.prix|number:'0.2'}}</td>
+        <td>
+          {{(chkdata?.qty ?? 0) * 100 * (chkdata?.prix ?? 0)/100 | currency:'EUR':true:'1.2-2'}}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">Total:</td>
+        <td> {{total | number: '1.2-2'}} </td>
+      </tr>
+    </table>
+    <button class="btn btn-success" (click)="onOrder()" >Confirmer la commande</button>
+    <button class="btn btn-success" (click)="onPayOrder()" >Pay Order</button> 
+ </div>
+</div>
+
+<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+  <app-footer></app-footer>
 </div>
 
 

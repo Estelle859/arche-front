@@ -60,27 +60,25 @@ export class ArticleDetailComponent implements OnInit {
       qty: 0
     });
   }
-  onSubmitForm() {
-    console.log('Your order has been submitted', this.addCartForm.value);    
+  onSubmitForm() {   
     const formValue = this.addCartForm.value;
     this.cartItems.qty = formValue.qty;   
-    this.cartItems.article = this.article;    
+    this.cartItems.article = this.article;   
+    this.cartItems.prix = this.article.prixUnitaire;  
     this.addArticle(this.cartItems);
   }
 
 
   addArticle(cartLine:LignePanier){
-    console.log("quantity",cartLine.qty);
-    if(sessionStorage.getItem(cartLine?.article?.id?.toString()||'') != null){
+     if(sessionStorage.getItem(cartLine?.article?.id?.toString()||'') != null){
       alert("vous avez déjà ajouté cet article à votre panier ");
       const session = sessionStorage.getItem(cartLine?.article?.id?.toString()||'');
-      console.log(session);
       cartLine.qty  =  JSON.parse(session || "").qty +  cartLine.qty;
       sessionStorage.setItem(cartLine?.article?.id?.toString()||'', JSON.stringify(cartLine));
       location.reload();
       return ;
     }
-    if(this.cartItems.qty == 0 ){
+    if(cartLine.qty == 0 ){
       alert(" veuillez saisir une quantité supérieure à 0 ");
     return 
     }

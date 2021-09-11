@@ -1,5 +1,7 @@
-import { Adresse } from './adresse';
-export interface User {
+import { Adresse } from "./adresse";
+import { User } from "./user";
+
+export interface Client {
     id?: number;
     nom?: string;
     prenom?: string;

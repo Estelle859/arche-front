@@ -15,7 +15,7 @@
         <mat-icon>shopping_cart</mat-icon>      
     </button>
     <span class="spacer"></span> 
-    <button  mat-icon-button aria-label="Logout button" *ngIf="authService.isUserLoggedIn()" routerLink="/logout">        
+    <button  mat-icon-button aria-label="Logout button" (click)="logout()" >        
         <mat-icon> exit_to_app </mat-icon>
     </button>
   </mat-toolbar>

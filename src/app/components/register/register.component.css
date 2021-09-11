@@ -1,15 +1,16 @@
-.register-card{
-    margin-top: 2em auto;
-    width: 40%;
-    display: inline-block;
-    vertical-align: middle;
-}
+
 .main-div{
-    height: 80vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
   }   
-.mat-form-field {   
-    display: block;
-}
+
+.form-group {
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: row wrap;
+    align-items: center;
+    margin-bottom: 0;
+  }
+ 

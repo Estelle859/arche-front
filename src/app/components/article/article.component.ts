@@ -17,8 +17,7 @@ export class ArticleComponent implements OnInit {
 
   }
 
-  addToCart() {
-    console.log("ADD TO CART")
+  addToCart() {  
     this.productAddToCart.emit(this.article);
   }
     

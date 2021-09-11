@@ -18,38 +18,35 @@ export class LignePanierComponent implements OnInit {
 
 public cart:LignePanier[]= [];
 public total:number;
-
+private article: Article = {} ;
+private qteStock: any | undefined;
 private authenticationServiceSubscription : Subscription;
 
 constructor(private panierService: PanierService,
-            private router: Router,
+            private router: Router,        
             private authenticationService: AuthenticationService,
-            private userService: UserService,  
+            private userService: UserService, 
+
           ) { }
 
   ngOnInit(): void {  
-      this.getArticlesCart();   
+      this.getArticlesCart();     
       this.total = this.getTotal()  ;
   }
 
   getArticlesCart(){
     const keys = Object.keys(sessionStorage); 
-    for( let i = 0; i<sessionStorage.length;i++){
-      //console.log("CART ITEMS",sessionStorage.length,i)
-      //console.log("CART ITEMS OBJECT",Object.keys(sessionStorage));
+    for( let i = 0; i<sessionStorage.length;i++){     
       console.log("KEYS",Object.keys(sessionStorage));      
    
-      if(keys[i] == 'authenticatedUser'){
+      if(keys[i] == 'authenticatedUser'&&'mycart'){
         console.log("je suis user",i);
       }else{
-
         let session= sessionStorage.getItem( sessionStorage.key(i) ||"");   
         let lineCart!:LignePanier; 
         lineCart = JSON.parse(session || "");
         this.cart.push(lineCart);
       }
-
-
     }
   }
   deleteItemStorage(index:number){  
@@ -63,42 +60,40 @@ constructor(private panierService: PanierService,
   var prix:number;
   var tot:number = 0;
   for( let i = 0; i<sessionStorage.length;i++){
-    let session= sessionStorage.getItem( sessionStorage.key(i) ||""); 
-    console.log(session)
+    let session= sessionStorage.getItem( sessionStorage.key(i) ||"");   
     let lineCart!:LignePanier; 
     lineCart = JSON.parse(session || "");
     const str_qty =  JSON.parse(session || "").qty;   
-    const str_article =  JSON.parse(session || "").article; 
-  
-    if (str_qty == null || str_qty == "null"){
-      console.log("QTYNULL", str_qty )
+    const str_article =  JSON.parse(session || "").article;  
+    if (str_qty == null || str_qty == "null"){   
       tot = 0;
-    } else {
-      console.log("QTY", str_qty )
-      console.log("ARTICLE", str_article.prixUnitaire )
+    } else {    
       qty = parseInt(str_qty);
       prix = parseFloat(str_article.prixUnitaire);
-      tot =  tot + (qty *prix) ;      
-      console.log("total", tot );
+      tot =  tot + (qty *prix) ; 
     }    
   }
   return tot;    
   }
+  getTotalCart() {
+    return this.panierService.getTotalCart();
+  }
   
-  valider(){
-    console.log("if user is logged in");
-    this.checkAuthentication();
+  valider(){  
+    this.router.navigate(['/commande']);    
   }
-  checkAuthentication() {
-    if(this.authenticationService.isUserLoggedIn()){
-      console.log("user is still connected");
-      this.router.navigate(['/valider']);
-    }else{
-      console.log("user not connected");
-      this.router.navigate(['login']);
-    }
+  // checkAuthentication() {
+  //   if(this.authenticationService.isUserLoggedIn()){
+  //     console.log("user is still connected**", this.authenticationService.authenticatedUser);
+  //     this.router.navigate(['commande']);
+  //    // this.router.navigateByUrl('commande');
+  //   }else{
+  //     console.log("user not connected");
+  //    // this.router.navigateByUrl('/login');
+  //     this.router.navigate(['login'])
+  //   }
    
-  }
+  // }
   ngOnDestroy(){
      if(this.authenticationServiceSubscription){
        this.authenticationServiceSubscription.unsubscribe();

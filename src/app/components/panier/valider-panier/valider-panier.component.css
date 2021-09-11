@@ -1,0 +1,14 @@
+.button-group{
+    margin-left:20px;
+}
+.form-group {
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: row wrap;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  .main-div{
+    height: 100vh;
+  
+  } 

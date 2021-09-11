@@ -13,11 +13,17 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 export class NavbarComponent implements OnInit {
 
   items: LignePanier;
-  constructor(public authService: AuthenticationService) { }
+  constructor(public authService: AuthenticationService,
+    private router: Router,
+    ) { }
   
     ngOnInit() {
     
     } 
+    logout() {
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
   
 
 }

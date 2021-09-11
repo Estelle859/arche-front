@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from 'src/app/interfaces/user';
+import { Client } from 'src/app/interfaces/client';
 
 @Injectable({
   providedIn: 'root'
@@ -13,45 +14,34 @@ export class AuthenticationService {
   public authenticated: boolean;
   public authenticatedUser: any;
 
-  constructor(private http: HttpClient) {  
+  constructor(private http: HttpClient, private router: Router) {  
   } 
 
-  login(userName: any, password: any) { 
-    return  this.http.get<User>(this.url + userName +'/'+ password)  
-    .pipe(map(user => { 
-      console.log("USER from back", user)
-      if(user)  {             
-        this.authenticated = true;
-        this.authenticatedUser = user;
-        sessionStorage.setItem('authenticatedUser', JSON.stringify(this.authenticatedUser));
-        console.log("CONNEXION OK");        
-      } else{
-        this.authenticated = false;    
-        console.log("CONNEXION OK");         
-      }  
-      //return user;  
-    }));      
+  login(userName: any, password: any) {
+    return  this.http.get<Client>(this.url + userName +'/'+ password)  
+    .pipe(map(user => {
+            if(!(user === null)){                
+              this.authenticated=true;
+              this.authenticatedUser=user;                  
+              sessionStorage.setItem("authenticatedUser",JSON.stringify(this.authenticatedUser));              
+            }else{
+              this.authenticated=false;
+              this.authenticatedUser=undefined;
+            }
+            return user;
+          })); 
   }
-  loadUser(){
-    let user=sessionStorage.getItem('authenticatedUser');
-    if(user){
-      this.authenticatedUser=JSON.parse(user);
-      this.authenticated=true;
-    }
+  
+  logout(){
+    this.authenticated=false;
+    this.authenticatedUser=undefined;
+    // remove user from session storage to log user out
+    sessionStorage.removeItem('authenticatedUser');
   }
 
-  isUserLoggedIn() {
-  let user = sessionStorage.getItem('authenticatedUser');
-   console.log("USER",!(user === null));
-    return !(user === null);
+  isAuthenticated(){
     return this.authenticated;
   }
 
-  logout() {  
-    this.authenticated = false;
-    this.authenticatedUser = undefined; 
-    sessionStorage.removeItem('authenticatedUser');   
-    console.log("user logged out!!");  
-  }
   
 }
