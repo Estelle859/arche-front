@@ -7,6 +7,8 @@ import { UserService } from 'src/app/services/user/user.service';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -16,7 +18,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
     loading = false;
-    submitted = false;
+    submitted = false;    
 
     constructor(
         private formBuilder: FormBuilder,
@@ -38,11 +40,12 @@ export class RegisterComponent implements OnInit {
             email: ['', Validators.required],            
             telephone: ['', Validators.required],
             motdepasse: ['', [Validators.required, Validators.minLength(6)]],
-            adresses: this.formBuilder.group({
-                'rue': [''],
-                'ville': [''],
-                'codePostale': ['']
-            }),
+            // adresses: this.formBuilder.group({
+            //      'rue': [''],
+            //      'ville': [''],
+            //      'codePostale': ['']
+            //  }),
+            
         });
     }
 
@@ -51,18 +54,20 @@ export class RegisterComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-
+        console.log("REGISTOR FORM VALUE",this.registerForm.value)
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
         }
 
         this.loading = true;
+        console.log("reg form value", this.registerForm.value)
         this.userService.register(this.registerForm.value)
             .pipe(first())
             .subscribe(
                 data => {
                     alert('Registration successful');
+                    console.log(data);
                     this.router.navigate(['/login']);
                 },
                 error => {

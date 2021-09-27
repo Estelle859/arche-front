@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Adresse } from 'src/app/interfaces/adresse';
-import { Client } from 'src/app/interfaces/user';
+import { Client } from 'src/app/interfaces/client';
 
 
 @Injectable({
@@ -35,12 +35,5 @@ export class ClientService {
     return this.http.delete(this.url + id,);
   }
 
-  getUserByToken () : Observable<Client> {
-    return this.http.get<Client>(this.url, {
-        headers: new HttpHeaders({
-          'Authorization': 'Bearer ' + localStorage.getItem('token'),
-          'Content-Type': 'application/json'
-        })
-    });
-}
+
 }

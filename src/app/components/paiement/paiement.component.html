@@ -1,5 +1,5 @@
 <div class="col-md-6" *ngIf="currentOrder">
-    <form #f="ngForm" (ngSubmit)="onParOrder(f.value)">
+    <form #f="ngForm" (ngSubmit)="onPayerOrder(f.value)">
       <div class="form-group">
         <label class="control-label">Type:</label>
         <select name="type" ngModel class="form-control">

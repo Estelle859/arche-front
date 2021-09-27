@@ -8,26 +8,41 @@
   <form #f="ngForm" (ngSubmit)="onSaveClient(f.value)">
     <div class="form-group">
       <label class="control-label">Nom:</label>
-      <input type="text" name="nom" ngModel class="form-control" [(ngModel)]="client.nom">
+      <input type="text" name="nom" ngModel class="form-control" [(ngModel)]="client.nom" >
     </div>
     <div class="form-group">
       <label class="control-label">Prenom:</label>
-      <input type="text" name="prenom" ngModel class="form-control" [(ngModel)]="client.prenom">
+      <input type="text" name="prenom" class="form-control" [(ngModel)]="client.prenom" >
+    </div>
+    <!-- <div class="form-group" *ngFor="let adresse of adresses">
+      <label class="control-label">Rue:</label>
+      <input type="text" name="rue" class="form-control" [(ngModel)]="adresse.rue" >
+      <label class="control-label">Ville:</label>
+      <input type="text" name="ville" class="form-control" [(ngModel)]="adresse.ville" >
+      <label class="control-label">Code Postale:</label>
+      <input type="text" name="codePostale" class="form-control" [(ngModel)]="adresse.codePostale" >
+    </div> -->
+     <!-- <div class="form-group">
+      <label for="rue">Rue:</label>
+      <input type="text" class="form-control" placeholder="enter rue" [(ngModel)]="adresses.rue"  formControlName="rue" required>
+    </div>  -->
+    <!-- <div class="form-group">
+      <label for="ville">Ville:</label>
+      <input type="text" class="form-control" placeholder="enter ville" [(ngModel)]="adresses.ville"  formControlName="ville" required>
     </div>
     <div class="form-group">
-      <label class="control-label">Adresse:</label>
-      <input type="text" name="adresse" ngModel class="form-control" [(ngModel)]="client.adresses">
-    </div>
+      <label for="codePostale">Code Postale:</label>
+      <input type="text" class="form-control"  placeholder="enter codePostale" [(ngModel)]="adresses.codePostale" formControlName="codePostale" required>
+       
+    </div>  -->
       <div class="form-group">
         <label class="control-label">N° Telephone:</label>
-        <input type="text" name="telephone" ngModel class="form-control" [(ngModel)]="client.telephone">
+        <input type="text" name="telephone" ngModel class="form-control" [(ngModel)]="client.telephone" >
       </div>
       <div class="form-group">
         <label class="control-label">Email:</label>
-        <input type="text" name="email" ngModel class="form-control" [(ngModel)]="client.email">
-      </div>
-     
-   
+        <input type="text" name="email" ngModel class="form-control" [(ngModel)]="client.email" >
+      </div>  
     <button type="submit" class="btn btn-primary">Next</button>
   </form>
 </div>
@@ -44,10 +59,27 @@
         <label>Prenom du Client :</label>
         <label>{{commandeService.commande?.client?.prenom}}</label>
       </div>
-      <div class="form-group">
-        <label>Adresse Client :</label>
-        <label>{{commandeService.commande?.client?.adresses}}</label>
+
+    <!-- <div  class="form-group">  
+      <label>Adresse Client:</label>                
+        <label *ngFor="let adresse of adresses">
+           {{ adresse.rue }}  {{ adresse.ville }} {{ adresse.codePostale }}  
+        </label>
+    </div> -->
+      <!-- <div class="form-group">
+        <label>Adresse Client</label>
+       <br> 
+        <label>Rue :</label>
+        <label>{{commandeService.commande?.client?.adresses?.rue}}</label>
       </div>
+      <div class="form-group">
+        <label>Ville :</label>
+        <label>{{commandeService.commande?.client?.adresses?.ville}}</label>
+      </div>
+      <div class="form-group">
+        <label>Code Postale :</label>
+        <label>{{commandeService.commande?.client?.adresses?.codePostale}}</label>
+      </div> -->
       <div class="form-group">
         <label>Tél Client :</label>
         <label>{{commandeService.commande?.client?.telephone}}</label>
@@ -55,8 +87,7 @@
       <div class="form-group">
         <label>Email :</label>
         <label>{{commandeService.commande?.client?.email}}</label>
-      </div>
-      
+      </div>      
     </div>
     <div class="col-md-5">
       <div class="form-group">
@@ -67,8 +98,7 @@
         <label>Order Date :</label>
         <label>{{commandeService.commande.dateCommande}}</label>
       </div>
-    </div> 
-
+    </div>
   </div> 
   <div class="panel-body">
     <table class="table table-striped">
@@ -79,26 +109,38 @@
         <th>Prix</th>
         <th>Total</th>
       </tr>
-      <tr *ngIf="checkout == null">
+      <!-- <tr *ngIf="checkout == null">
         <td colspan="5" class="text-center"><h4>Your checkout is empty</h4></td>
-      </tr>
-      <tr *ngFor="let chkdata of checkout; let i = index">
-        <td>{{ i+1 }}</td>
-        <!-- <td>{{chkdata.id}}</td> -->
+      </tr> -->
+      <tr *ngFor="let chkdata of commandeService.commande.lignecommandes; let i = index">
+        <!-- <td>{{ i+1 }}</td> -->
+        <td>{{chkdata.id}}</td> 
         <td>{{chkdata.article?.titre}}</td>
-        <td>{{chkdata.qty|number:'0.2'}}</td>
+        <td>
+          {{chkdata.qty}}
+          <!-- <div class="row">
+            <div class="col-6">
+              <input type="number" value="{{chkdata.qty|number:'0.2'}}" #quant>
+              <input type="hidden" value="{{chkdata.id}}" #prod>
+            </div>
+            <div class="col-6">
+              <button class="btn btn-info btn-sm" (click)="updateQuantity(prod,quant)">Update</button>
+            </div>
+          </div> -->
+        </td>
+
         <td>{{chkdata.prix|number:'0.2'}}</td>
         <td>
           {{(chkdata?.qty ?? 0) * 100 * (chkdata?.prix ?? 0)/100 | currency:'EUR':true:'1.2-2'}}
         </td>
       </tr>
       <tr>
-        <td colspan="4">Total:</td>
-        <td> {{total | number: '1.2-2'}} </td>
+        <td colspan="1">Total:</td>
+        <td> {{commandeService.getTotalOrder()|number:'0.2'}} </td>
       </tr>
     </table>
-    <button class="btn btn-success" (click)="onOrder()" >Confirmer la commande</button>
-    <button class="btn btn-success" (click)="onPayOrder()" >Pay Order</button> 
+    <button class="btn btn-success" (click)="onOrder()" *ngIf="!commandeService.commande.id">Confirmer la commande</button>   
+    <button class="btn btn-success" (click)="onPayOrder()" >Payer la commande</button> 
  </div>
 </div>
 

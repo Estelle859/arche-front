@@ -21,13 +21,17 @@ export class UserService {
       return this.http.get<Client[]>(this.url +'all');
     }
 
-    delete(id: number) {
+    delete(id: number):Observable<Client> {
         return this.http.delete(this.url +id);
     }  
 
-    register(user: Client) {
+    register(user: Client):Observable<Client> {
       console.log("registraion done");
-        return this.http.post(this.url +`add`, user);
+        return this.http.post(this.url +`add`,   JSON.stringify(user),
+        {
+          headers:
+            { 'Content-Type': 'application/json' }
+        });
     }  
 
   

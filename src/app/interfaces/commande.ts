@@ -1,5 +1,6 @@
 import { Client } from "./client";
 import { LignePanier } from "./ligne-panier";
+import { Lignecommande } from "./lignecommande";
 import { User } from "./user";
 
 export interface Commande {
@@ -7,6 +8,5 @@ export interface Commande {
     dateCommande? : Date;    
     client? : Client;
     prixTotal? : number;
-    lignecommandes? : Array <LignePanier>;
-
+    lignecommandes?: Lignecommande[];
 }

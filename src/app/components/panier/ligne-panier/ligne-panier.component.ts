@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { of, Subscription } from 'rxjs';
 import { Article } from 'src/app/interfaces/article';
@@ -14,12 +14,12 @@ import { UserService } from 'src/app/services/user/user.service';
   templateUrl: './ligne-panier.component.html',
   styleUrls: ['./ligne-panier.component.css']
 })
-export class LignePanierComponent implements OnInit {
+export class LignePanierComponent implements OnInit,OnDestroy {
 
 public cart:LignePanier[]= [];
 public total:number;
-private article: Article = {} ;
-private qteStock: any | undefined;
+//private article: Article = {} ;
+//private qteStock: any | undefined;
 private authenticationServiceSubscription : Subscription;
 
 constructor(private panierService: PanierService,
@@ -75,31 +75,22 @@ constructor(private panierService: PanierService,
   }
   return tot;    
   }
-  getTotalCart() {
-    return this.panierService.getTotalCart();
-  }
+  // getTotalCart() {
+  //   return this.panierService.getTotalCart();
+  // }
   
-  valider(){  
+  valider(){ 
+   
     this.router.navigate(['/commande']);    
   }
-  // checkAuthentication() {
-  //   if(this.authenticationService.isUserLoggedIn()){
-  //     console.log("user is still connected**", this.authenticationService.authenticatedUser);
-  //     this.router.navigate(['commande']);
-  //    // this.router.navigateByUrl('commande');
-  //   }else{
-  //     console.log("user not connected");
-  //    // this.router.navigateByUrl('/login');
-  //     this.router.navigate(['login'])
-  //   }
-   
-  // }
+  
   ngOnDestroy(){
      if(this.authenticationServiceSubscription){
        this.authenticationServiceSubscription.unsubscribe();
      }
- }
+ 
 
 }
 
 
+}

@@ -22,7 +22,7 @@ export class PaiementComponent implements OnInit {
       console.log(err);
     })
   }
-  onParOrder(data: any) {
+  onPayerOrder(data: any) {
     console.log(data);
   }
   

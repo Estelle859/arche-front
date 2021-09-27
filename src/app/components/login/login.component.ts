@@ -12,42 +12,7 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
-  // user:User = {}; 
-  // erreur = '';
-  // invalidLogin = false;
-  // returnUrl: string;
-  // loading = false;
-  // submitted=false;
 
-  // constructor(
-  //   private route: ActivatedRoute,
-  //   private router: Router,   
-  //   private authService: AuthenticationService,
-   
-  //   ) { }
-
-  // ngOnInit(): void { 
-  //   this.authService.logout();  
-  //   this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'; 
-  // }  
-
-  // login(): void { 
-  //   this.loading = true;  
-  //   this.authService.login(this.user.nom||'', this.user.motdepasse||'')
-  //   .subscribe(
-  //     res => {
-  //         console.log("data",res);
-  //         this.router.navigate([this.returnUrl]);      
-  //     },
-  //     error => {
-  //       console.log("user connexion not  ok");
-  //       this.erreur = 'Identifiants incorrects';
-  //       this.loading = false;  
-  //     });
-   
- 
-  //  } 
   loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -102,7 +67,7 @@ export class LoginComponent implements OnInit {
                  
               },
               error => {
-                  alert(error);
+                  alert("error");
                   this.loading = false;
               });
   }

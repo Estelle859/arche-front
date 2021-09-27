@@ -111,7 +111,6 @@ export class PanierService {
  
     public getCart():Panier{ 
       this.cart.lPaniers = this.getArticlesCart();
-      console.log("get cart items", this.cart)
       return this.cart;
     }
     getSize(){    
@@ -127,6 +126,7 @@ export class PanierService {
       });
        return total;
     }
+
 
 
 
