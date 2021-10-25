@@ -121,6 +121,7 @@ export class ValiderPanierComponent implements OnInit{
     onPayOrder() {
       //this.router.navigate(['/paiement/'+ +this.commandeService.commande.id)]);
      this.router.navigateByUrl("/paiement/"+this.commandeService.commande.id);
+     console.log("payer pour ma commande",this.commandeService.commande.id);
     }
   
 }
