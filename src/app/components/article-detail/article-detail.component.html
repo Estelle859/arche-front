@@ -20,7 +20,7 @@
                 <p class="lead">{{article.resume}}</p>
                 <div class="d-flex">
                     <form [formGroup]="addCartForm" (ngSubmit)="onSubmitForm()">                     
-                      <input class="form-control text-center me-3" id="qty" type="number" style="max-width: 3rem" formControlName="qty" />
+                      <input class="form-control text-center me-3" id="quantiteCommande" type="number" style="max-width: 3rem" formControlName="quantiteCommande" />
                       <button class="btn btn-outline-dark flex-shrink-0" type="submit">
                           ajouter au panier
                       </button>

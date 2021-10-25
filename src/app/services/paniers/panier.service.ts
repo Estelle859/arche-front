@@ -35,17 +35,17 @@ export class PanierService {
    }
 
   addArticleToCart(cartLine:LignePanier) {
-    console.log("quantity",cartLine.qty);
+    console.log("quantiteCommande",cartLine.quantiteCommande);
     if(sessionStorage.getItem(cartLine?.article?.id?.toString()||'') != null){
       alert("vous avez déjà ajouté cet article à votre panier ");
       const session = sessionStorage.getItem(cartLine?.article?.id?.toString()||'');
       console.log(session);
-      cartLine.qty  =  JSON.parse(session || "").qty +  cartLine.qty;
+      cartLine.quantiteCommande  =  JSON.parse(session || "").quantiteCommande +  cartLine.quantiteCommande;
       sessionStorage.setItem(cartLine?.article?.id?.toString()||'', JSON.stringify(cartLine));
       location.reload();
       return ;
     }
-    if(cartLine.qty == 0 ){
+    if(cartLine.quantiteCommande == 0 ){
       alert(" veuillez saisir une quantité supérieure à 0 ");
     return 
     }
@@ -98,7 +98,7 @@ export class PanierService {
     var inputValue:number = event.target.value;
     let cartlineJSON:any
     cartlineJSON = JSON.parse( sessionStorage.getItem(inputId.toString()) || "");
-    cartlineJSON["qty"] = inputValue;
+    cartlineJSON["quantiteCommande"] = inputValue;
     console.log(cartlineJSON);
     sessionStorage.setItem(inputId.toString(), JSON.stringify(cartlineJSON));
     location.reload();
@@ -120,8 +120,8 @@ export class PanierService {
       let total:any=0;
       console.log("total from service",this.cart.lPaniers)
       this.cart?.lPaniers?.forEach(p=>{
-        let prix:any = p.prix?? [];
-        let qty:any = p.qty?? [];
+        let prix:any = p.prixUnitaire?? [];
+        let qty:any = p.quantiteCommande?? [];
         total+=prix * qty;
       });
        return total;

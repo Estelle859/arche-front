@@ -57,14 +57,14 @@ export class ArticleDetailComponent implements OnInit {
 
   initForm() {
     this.addCartForm = this.fb.group({
-      qty: 0
+      quantiteCommande: 0
     });
   }
   onSubmitForm() {   
     const formValue = this.addCartForm.value;
-    this.cartItems.qty = formValue.qty;   
+    this.cartItems.quantiteCommande = formValue.quantiteCommande;   
     this.cartItems.article = this.article;   
-    this.cartItems.prix = this.article.prixUnitaire;  
+    this.cartItems.prixUnitaire = this.article.prixUnitaire;  
     this.addArticle(this.cartItems);
   }
 
@@ -73,12 +73,12 @@ export class ArticleDetailComponent implements OnInit {
      if(sessionStorage.getItem(cartLine?.article?.id?.toString()||'') != null){
       alert("vous avez déjà ajouté cet article à votre panier ");
       const session = sessionStorage.getItem(cartLine?.article?.id?.toString()||'');
-      cartLine.qty  =  JSON.parse(session || "").qty +  cartLine.qty;
+      cartLine.quantiteCommande  =  JSON.parse(session || "").quantiteCommande +  cartLine.quantiteCommande;
       sessionStorage.setItem(cartLine?.article?.id?.toString()||'', JSON.stringify(cartLine));
       location.reload();
       return ;
     }
-    if(cartLine.qty == 0 ){
+    if(cartLine.quantiteCommande == 0 ){
       alert(" veuillez saisir une quantité supérieure à 0 ");
     return 
     }

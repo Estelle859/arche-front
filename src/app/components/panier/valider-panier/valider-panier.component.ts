@@ -55,8 +55,8 @@ export class ValiderPanierComponent implements OnInit{
     this.commandeService.setClient(client); 
     this.commandeService.loadProductsFromCart();   
    // this.commandeService.getTotalOrder();
-   this.total =  this.commandeService.getTotalOrder(); 
-   this.commandeService.setTotal(this.total);
+    this.total =  this.commandeService.getTotalOrder(); 
+    this.commandeService.setTotal(this.total);
    // this.commandeService.setCheckout(this.checkout);
     this.mode=1;    
   }
@@ -117,7 +117,6 @@ export class ValiderPanierComponent implements OnInit{
       alert('POST Commande - now completed.');
     });
     }
-
     onPayOrder() {
       //this.router.navigate(['/paiement/'+ +this.commandeService.commande.id)]);
      this.router.navigateByUrl("/paiement/"+this.commandeService.commande.id);

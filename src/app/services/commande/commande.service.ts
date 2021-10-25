@@ -45,13 +45,13 @@ export class CommandeService {
   // }
  
   public loadProductsFromCart(){ 
-  this.commande.lignecommandes=[];
+  this.commande.ligneCommandes=[];
   for(let key in this.panierService.getCart().lPaniers){     
      let cart :any = this.panierService.getCart()?? [];
-     this.commande.lignecommandes.push(cart.lPaniers[key]);   
-      console.log("loading products from cart",this.commande.lignecommandes)
+     this.commande.ligneCommandes.push(cart.lPaniers[key]);   
+      console.log("loading products from cart",this.commande.ligneCommandes)
   }
-  //this.checkout = this.commande.lignecommandes;
+  //this.checkout = this.commande.ligneCommandes;
   }
 
   
@@ -81,15 +81,16 @@ export class CommandeService {
   }
 
   public getOrder(id:number):Observable<Commande>{
+    console.log("commande numero", id);
     return this.httpClient.get<Commande>(this.urlCom+id);
   
   }
 
   public getTotalOrder():number{
     let total:any=0;
-    this.commande?.lignecommandes?.forEach(p=>{
-      let prix:any = p.prix?? [];
-      let qty:any = p.qty?? [];
+    this.commande?.ligneCommandes?.forEach(p=>{
+      let prix:any = p.prixUnitaire?? [];
+      let qty:any = p.quantiteCommande?? [];
       total+=prix * qty;
     });
    this.totalPrix = total;

@@ -30,8 +30,10 @@ constructor(private panierService: PanierService,
           ) { }
 
   ngOnInit(): void {  
+   
       this.getArticlesCart();     
-      this.total = this.getTotal()  ;
+      this.total = this.getTotal();
+    
   }
 
   getArticlesCart(){
@@ -59,12 +61,13 @@ constructor(private panierService: PanierService,
   var qty:number;
   var prix:number;
   var tot:number = 0;
+  console.log("LENGTH", sessionStorage.length)
   for( let i = 0; i<sessionStorage.length;i++){
     let session= sessionStorage.getItem( sessionStorage.key(i) ||"");   
     let lineCart!:LignePanier; 
     lineCart = JSON.parse(session || "");
-    const str_qty =  JSON.parse(session || "").qty;   
-    const str_article =  JSON.parse(session || "").article;  
+    const str_qty =  JSON.parse(session || "").quantiteCommande;   
+    const str_article =  JSON.parse(session || "").article;      
     if (str_qty == null || str_qty == "null"){   
       tot = 0;
     } else {    

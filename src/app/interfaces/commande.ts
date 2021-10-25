@@ -8,5 +8,5 @@ export interface Commande {
     dateCommande? : Date;    
     client? : Client;
     prixTotal? : number;
-    lignecommandes?: Lignecommande[];
+    ligneCommandes?: Lignecommande[];
 }

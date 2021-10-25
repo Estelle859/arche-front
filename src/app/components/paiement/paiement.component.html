@@ -1,3 +1,9 @@
+<div>
+  <app-navbar></app-navbar>
+</div>
+<div class="header" fxLayout="column" fxLayoutAlign="center center">
+  <app-header></app-header> 
+</div>
 <div class="col-md-6" *ngIf="currentOrder">
     <form #f="ngForm" (ngSubmit)="onPayerOrder(f.value)">
       <div class="form-group">
@@ -22,4 +28,8 @@
         </div>
         <button type="submit" class="btn btn-primary">Payer</button>
     </form>
+  </div>
+
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    <app-footer></app-footer>
   </div>

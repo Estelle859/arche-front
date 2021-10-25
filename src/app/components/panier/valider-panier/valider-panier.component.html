@@ -89,7 +89,7 @@
         <label>{{commandeService.commande?.client?.email}}</label>
       </div>      
     </div>
-    <div class="col-md-5">
+    <!-- <div class="col-md-5">
       <div class="form-group">
         <label>Order ID :</label>
         <label>{{commandeService.commande.id}}</label>
@@ -98,7 +98,7 @@
         <label>Order Date :</label>
         <label>{{commandeService.commande.dateCommande}}</label>
       </div>
-    </div>
+    </div> -->
   </div> 
   <div class="panel-body">
     <table class="table table-striped">
@@ -112,12 +112,12 @@
       <!-- <tr *ngIf="checkout == null">
         <td colspan="5" class="text-center"><h4>Your checkout is empty</h4></td>
       </tr> -->
-      <tr *ngFor="let chkdata of commandeService.commande.lignecommandes; let i = index">
-        <!-- <td>{{ i+1 }}</td> -->
+      <tr *ngFor="let chkdata of commandeService.commande.ligneCommandes; let i = index">
+        <!-- <td>{{ i+1 }}</td>  -->
         <td>{{chkdata.id}}</td> 
         <td>{{chkdata.article?.titre}}</td>
         <td>
-          {{chkdata.qty}}
+          {{chkdata.quantiteCommande}}
           <!-- <div class="row">
             <div class="col-6">
               <input type="number" value="{{chkdata.qty|number:'0.2'}}" #quant>
@@ -129,9 +129,9 @@
           </div> -->
         </td>
 
-        <td>{{chkdata.prix|number:'0.2'}}</td>
+        <td>{{chkdata.prixUnitaire|number:'0.2'}}</td>
         <td>
-          {{(chkdata?.qty ?? 0) * 100 * (chkdata?.prix ?? 0)/100 | currency:'EUR':true:'1.2-2'}}
+          {{(chkdata?.quantiteCommande ?? 0) * 100 * (chkdata?.prixUnitaire ?? 0)/100 | currency:'EUR':true:'1.2-2'}}
         </td>
       </tr>
       <tr>

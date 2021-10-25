@@ -15,7 +15,8 @@ export class PaiementComponent implements OnInit {
     private route:ActivatedRoute,
     private commandeService:CommandeService) { }
 
-  ngOnInit(): void { let id=this.route.snapshot.params.orderID
+  ngOnInit(): void { let id=this.route.snapshot.params.idCommande;
+    console.log("ID ORDER",id);
     this.commandeService.getOrder(id).subscribe(data=>{
       this.currentOrder=data;
     },err=>{
@@ -24,6 +25,7 @@ export class PaiementComponent implements OnInit {
   }
   onPayerOrder(data: any) {
     console.log(data);
+    
   }
   
 

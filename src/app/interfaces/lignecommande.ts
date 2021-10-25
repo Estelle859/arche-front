@@ -2,7 +2,7 @@ import { Article } from "./article";
 
 export interface Lignecommande {
     id?:number;
-    qty?: number;
+    quantiteCommande?: number;
     article?: Article; 
-    prix?:number;   
+    prixUnitaire?:number;   
 }

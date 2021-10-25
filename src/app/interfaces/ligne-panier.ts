@@ -1,10 +1,10 @@
 import { Article } from "./article";
 
 export interface LignePanier {
-    id?: number;   
-    qty?: number;  
+    id?:number;
+    quantiteCommande?: number;
     article?: Article; 
-    prix?:number;
+    prixUnitaire?:number;   
     // libelle: String; 
     //tva:number;
     // prixttc:number;
