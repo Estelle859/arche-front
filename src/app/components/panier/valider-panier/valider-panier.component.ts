@@ -37,10 +37,8 @@ export class ValiderPanierComponent implements OnInit{
   public adresses: Adresse[]= [];
   //public client: Client = { nom: '', prenom:'', adresses: {rue:'', ville: '' ,codePostale:''},telephone:'',email:''} ;
   constructor( 
-    //private authService: AuthenticationService,
     private router: Router,
-    public panierService: PanierService,
-    //private articleService: ArticleService,
+    public panierService: PanierService,    
     public commandeService: CommandeService,
     ) {
      

@@ -82,8 +82,7 @@ constructor(private panierService: PanierService,
   //   return this.panierService.getTotalCart();
   // }
   
-  valider(){ 
-   
+  valider(){    
     this.router.navigate(['/commande']);    
   }
   
