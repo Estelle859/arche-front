@@ -19,15 +19,31 @@
                 <div class="fs-5 mb-5">  <span> {{article.prixUnitaire}} €</span> </div>
                 <p class="lead">{{article.resume}}</p>
                 <div class="d-flex">
-                    <form [formGroup]="addCartForm" (ngSubmit)="onSubmitForm()">                     
-                      <input class="form-control text-center me-3" id="quantiteCommande" type="number" style="max-width: 3rem" formControlName="quantiteCommande" />
-                      <button class="btn btn-outline-dark flex-shrink-0" type="submit">
-                          ajouter au panier
+                    <form [formGroup]="addCartForm" (ngSubmit)="onSubmitForm()">    
+                      <div>
+                        <input class="form-control text-center me-3" id="quantiteCommande" type="number"  min="0"  max={{article.quantiteEnStock}} style="max-width: 3rem" formControlName="quantiteCommande" />
+                       <div>
+                        {{article.quantiteEnStock}} en stock
+                       </div>
+                      </div>            
+                      <br>
+                    <div>
+                      <button class="btn btn-primary" type="submit">
+                        ajouter au panier
                       </button>
-                  </form>     
-                  
+                                      
+                     </div> 
+                     
+                  </form>  
+          
                 </div>
+                <br>
+               <div>
+                <a routerLink="/home" class="btn btn-primary"><i class="fa fa-angle-left"></i> Continuer Achat</a><br>      
+               </div>
+               
             </div>
+         
         </div>
     </div>
   </section>

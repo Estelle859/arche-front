@@ -28,11 +28,12 @@ export class ValiderPanierComponent implements OnInit{
   public mode:number=0;
   panelStyle:string= "panel-default";  
  // public checkout : Lignecommande[] = [] ;
- public total :number = 0;
- // private article: Article = {} ;
+  public total :number = 0;
+  private article: Article = {} ;
+  private totalSum :any = 0;
 
- cartlist: Lignecommande[] =[] ;
-  //private qteStock: any | undefined;
+  cartlist: Lignecommande[] =[] ;
+  private qteStock: any | undefined;
   public client: Client ={};
   public adresses: Adresse[]= [];
   //public client: Client = { nom: '', prenom:'', adresses: {rue:'', ville: '' ,codePostale:''},telephone:'',email:''} ;
@@ -40,6 +41,7 @@ export class ValiderPanierComponent implements OnInit{
     private router: Router,
     public panierService: PanierService,    
     public commandeService: CommandeService,
+    public articleService: ArticleService
     ) {
      
   }
@@ -52,71 +54,36 @@ export class ValiderPanierComponent implements OnInit{
     client=JSON.parse(sessionStorage.getItem('authenticatedUser')||''); 
     this.commandeService.setClient(client); 
     this.commandeService.loadProductsFromCart();   
-   // this.commandeService.getTotalOrder();
     this.total =  this.commandeService.getTotalOrder(); 
     this.commandeService.setTotal(this.total);
-   // this.commandeService.setCheckout(this.checkout);
     this.mode=1;    
   }
- 
-  // loadProductsFromCart(){
-  //   this.checkout=[];
-  //   const keys = Object.keys(sessionStorage); 
-  //   for( let i = 0; i<sessionStorage.length;i++){     
-  //     console.log("KEYS",Object.keys(sessionStorage));   
-  //     if(keys[i] == 'authenticatedUser'&&'mycart'){
-  //       console.log("je suis user",i);
-  //     }else{
-  //       let session= sessionStorage.getItem( sessionStorage.key(i) ||"");   
-  //       let lingneCommande!:Lignecommande; 
-  //       lingneCommande = JSON.parse(session || "");
-  //       this.checkout.push(lingneCommande);
-  //       console.log("CHECKOUT",this.checkout)
-  //     }
-  //   }
-  // }
-  // checkQuantityAvailable(idArt:number,qteCmd:number){
-    //   this.articleService.getArticleById(idArt)
-    //     .subscribe(res => {
-    //       this.article = res;
-    //       this.qteStock = this.article.quantiteEnStock;
-    //       console.log("ordered article and its qty in stock",this.article, this.qteStock)
-    //       if(qteCmd <= this.qteStock){
-    //           alert("ordered quantity is available in stock");       
-           
-    //       }else{
-    //           alert("quantity not available, select lesser qty ");
-            
-    //       }        
-    //     });
-    // }
-    // updateQuantity(inputId:number, event:any){
-    //   this.panierService.updateQuantity(inputId,event);  
-    // }
-     // update items quantity in the cart
-    // updateQuantity(id:any, quantity:any) {   
-    //     this.cartlist.forEach(value => {
-    //       let prix:any = value.prix?? [];
-    //       let qty:any = value.qty?? [];
-    //       this.totalSum = this.totalSum + (qty * prix);
-    //     });     
-    // }
-    onOrder() {
-      console.log("Commande::", this.commandeService.commande)
-      this.commandeService.submitOrder().subscribe(res=>{
-        console.log('[POST] create commande successfully', res);
-        this.commandeService.commande.id=res['id'] ;
-        this.commandeService.commande.dateCommande=res['dateCommande'];
-        this.panelStyle="panel-success";
-    },error => {
-      alert('FAIL to create Commande!');
-    },
-    () => {
-      alert('POST Commande - now completed.');
-    });
+
+    updateQuantity(inputId:number, event:any){
+      this.panierService.updateQuantity(inputId,event); 
+      this.mode=1;
+      this.commandeService.loadProductsFromCart();   
+      this.total =  this.commandeService.getTotalOrder(); 
+      this.commandeService.setTotal(this.total); 
+      
     }
-    onPayOrder() {
-      //this.router.navigate(['/paiement/'+ +this.commandeService.commande.id)]);
+ 
+    commander() {
+      console.log("Commande::", this.commandeService.commande);
+        this.commandeService.submitOrder().subscribe(res=>{
+          console.log('[POST] create commande successfully', res);
+          this.commandeService.commande.id=res['id'] ;
+          this.commandeService.commande.dateCommande=res['dateCommande'];
+          this.panelStyle="panel-success";
+        },error => {
+        alert('FAIL to create Commande!');
+        },
+        () => {
+        alert('POST Commande - now completed.');
+        });   
+ 
+    }
+    payer() {  
      this.router.navigateByUrl("/paiement/"+this.commandeService.commande.id);
      console.log("payer pour ma commande",this.commandeService.commande.id);
     }

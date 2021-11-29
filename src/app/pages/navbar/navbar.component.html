@@ -10,9 +10,15 @@
     <button mat-icon-button aria-label="Login button" routerLink="/login">        
         <mat-icon>account_circle</mat-icon>
     </button>   
-    <span class="spacer"></span> 
-    <button  mat-icon-button aria-label="Cart button" routerLink="/panier">    
-        <mat-icon>shopping_cart</mat-icon>      
+    <span class="spacer"></span>  
+    <button  mat-icon-button aria-label="Cart button" routerLink="/panier">
+        <mat-icon>shopping_cart</mat-icon>          
+        <!-- <a routerLink="/panier" class="cart position-relative d-inline-flex" aria-label="View your shopping cart">
+            <mat-icon>shopping_cart</mat-icon>
+            <span class="cart-basket d-flex align-items-center justify-content-center">
+               
+            </span>
+        </a>   -->
     </button>
     <span class="spacer"></span> 
     <button  mat-icon-button aria-label="Logout button" (click)="logout()" >        

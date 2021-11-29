@@ -14,16 +14,19 @@ import { Lignecommande } from 'src/app/interfaces/lignecommande';
   providedIn: 'root'
 })
 export class CommandeService {
-
   public commande:Commande={};
   public article: Article = {} ;
  // public qteStock: any | undefined;
  public totalPrix:any | undefined;
+ qteStock:any | undefined;
+ confirmeOk : boolean = true;
   //public checkout : Lignecommande[] = [] ;
   
   urlCom = 'http://localhost:8080/api/commande/';
   //private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   urlCli = 'http://localhost:8080/api/client/';
+  http: any;
+  
 
   constructor(private panierService : PanierService,
               private articleService : ArticleService,
@@ -75,8 +78,7 @@ export class CommandeService {
 
   submitOrder():Observable<Commande> {  
     console.log("order goes to back end ",this.commande);   
-    return this.httpClient.post<Commande>(this.urlCom+`add`,this.commande); 
-   
+    return this.httpClient.post<Commande>(this.urlCom+`add`,this.commande);    
     //return this.httpClient.post(this.urlCom,this.commande,{ headers: this.headers });
   }
 
@@ -95,6 +97,36 @@ export class CommandeService {
     });
    this.totalPrix = total;
     return total;
+  }
+
+  checkQuantityAvailable():boolean {  
+    this.commande?.ligneCommandes?.forEach(lc=>{
+      let idArticle:any = lc.article?.id;      
+      let quantiteCommande:any = lc.quantiteCommande;
+      let quantiteStock:any = lc.article?.quantiteEnStock;
+      if(quantiteCommande <= quantiteStock){
+        alert("ordered quantity is available in stock"+idArticle); 
+        let qty = quantiteStock -quantiteCommande;  
+        this.articleService.updateArticleStock(idArticle,qty).subscribe(
+          data => {
+              console.log("DATA article RETURNED FROM BACK",data)   ;             
+          },
+          error => {
+              alert("error");            
+          });
+        this.confirmeOk=true;
+      }else{
+        alert("quantity not available, select lesser qty " +idArticle);
+        this.confirmeOk=false;
+      }      
+    });  
+    console.log("ordered article and its qty in stock",this.article, this.qteStock); 
+    return this.confirmeOk;
+ 
+  }
+
+  public addPaiement(info: Object): Observable<Object> {
+    return this.httpClient.post<Commande>(this.urlCom+`paie`,this.commande); 
   }
 
 }

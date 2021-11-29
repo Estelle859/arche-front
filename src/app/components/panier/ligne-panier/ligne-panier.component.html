@@ -13,25 +13,28 @@
         <th>Article</th>
         <th>Prix</th>
         <th>Quantité</th>
-        <th>Total</th>
+        <th>Montant</th>
         <th></th>
       </tr>
     </thead>
-    <tr *ngFor="let cartLine of cart;index as i">
+    <tr *ngFor="let ligne of panier;index as i">
       <td>
-        {{cartLine?.article?.titre}}
+        {{ligne?.article?.titre}}
       </td>
     
-      <td>{{cartLine?.article?.prixUnitaire | currency:'EUR':true:'1.2-2'}}</td>
+      <td>{{ligne?.article?.prixUnitaire | currency:'EUR':true:'1.2-2'}}</td>
       <td>
         <div class="row">
-          <div class="col-6">
-            <input type="number" class=" mx-3 quantity_input" value = "{{cartLine?.quantiteCommande}}"  name="input{{cartLine?.article?.id}}" (change)=" updateQuantity(cartLine?.article?.id!,$event)"> 
+          <div class="col-8">
+            <input type="number" min="0"  max={{ligne?.article?.quantiteEnStock}} class=" mx-3 quantity_input" value = "{{ligne?.quantiteCommande}}"  name="input{{ligne?.article?.id}}" (change)=" updateQuantity(ligne?.article?.id!,$event)"> 
+           
+            {{ligne?.article?.quantiteEnStock}} en stock
+           
           </div>       
         </div> 
      </td>
       <td>
-        {{  (cartLine?.quantiteCommande ?? 0) * 100 * (cartLine?.article?.prixUnitaire ?? 0)/100 | currency:'EUR':true:'1.2-2'}}
+        {{  (ligne?.quantiteCommande ?? 0) * 100 * (ligne?.article?.prixUnitaire ?? 0)/100 | currency:'EUR':true:'1.2-2'}}
       </td>
       <td> 
         <a class="btn btn-sm btn-danger text-white ml-1" (click)="deleteItemStorage(i)">
@@ -42,7 +45,7 @@
   </table> 
 
   <div class="row">    
-    <div class="col-9">Total Sum : {{total | number: '1.2-2'}} </div>
+    <div class="col-9">Total TTC : {{total | number: '1.2-2'}} </div>
 
     <div class="offset-1 col-2"><button type="button" class="btn btn-primary align-right" (click)="valider()">Valider <i
           class="fa fa-angle-right"></i></button></div>

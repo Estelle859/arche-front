@@ -16,7 +16,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class LignePanierComponent implements OnInit,OnDestroy {
 
-public cart:LignePanier[]= [];
+public panier:LignePanier[]= [];
 public total:number;
 //private article: Article = {} ;
 //private qteStock: any | undefined;
@@ -47,7 +47,7 @@ constructor(private panierService: PanierService,
         let session= sessionStorage.getItem( sessionStorage.key(i) ||"");   
         let lineCart!:LignePanier; 
         lineCart = JSON.parse(session || "");
-        this.cart.push(lineCart);
+        this.panier.push(lineCart);
       }
     }
   }
@@ -61,7 +61,6 @@ constructor(private panierService: PanierService,
   var qty:number;
   var prix:number;
   var tot:number = 0;
-  console.log("LENGTH", sessionStorage.length)
   for( let i = 0; i<sessionStorage.length;i++){
     let session= sessionStorage.getItem( sessionStorage.key(i) ||"");   
     let lineCart!:LignePanier; 
@@ -89,9 +88,8 @@ constructor(private panierService: PanierService,
   ngOnDestroy(){
      if(this.authenticationServiceSubscription){
        this.authenticationServiceSubscription.unsubscribe();
-     }
+  }
  
-
 }
 
 

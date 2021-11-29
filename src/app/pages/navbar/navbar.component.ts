@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angu
 import { Router } from '@angular/router';
 import { LignePanier } from 'src/app/interfaces/ligne-panier';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { PanierService } from 'src/app/services/paniers/panier.service';
 
 
 @Component({
@@ -11,15 +12,20 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  cartCount: any = 0;
 
-  items: LignePanier;
   constructor(public authService: AuthenticationService,
+    public panierService: PanierService,
     private router: Router,
     ) { }
   
     ngOnInit() {
-    
+  
     } 
+    ngOnDestroy() {
+    
+    }
+
     logout() {
       this.authService.logout();
       this.router.navigate(['/login']);

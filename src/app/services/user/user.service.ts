@@ -27,11 +27,9 @@ export class UserService {
 
     register(user: Client):Observable<Client> {
       console.log("registraion done");
-        return this.http.post(this.url +`add`,   JSON.stringify(user),
-        {
-          headers:
-            { 'Content-Type': 'application/json' }
-        });
+     
+        return this.http.post<Client>(this.url+`add`,user);   
+      
     }  
 
   

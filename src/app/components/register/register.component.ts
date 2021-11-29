@@ -6,6 +6,7 @@ import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user/user.service';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { Client } from 'src/app/interfaces/client';
 
 
 
@@ -15,8 +16,22 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+public clients:Array<Client> =[];
+registerForm = this.formBuilder.group({
+    nom: ['', Validators.required],
+    prenom: ['', Validators.required],
+    email: ['', Validators.required],            
+    telephone: ['', Validators.required],
+    motdepasse: ['', [Validators.required, Validators.minLength(6)]],
+    adresses: this.formBuilder.array( [this.formBuilder.group({
 
-  registerForm: FormGroup;
+         'rue': [''],
+         'ville': [''],
+         'codePostale': ['']
+     })
+    ])
+    
+});
     loading = false;
     submitted = false;    
 
@@ -34,19 +49,7 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.registerForm = this.formBuilder.group({
-            nom: ['', Validators.required],
-            prenom: ['', Validators.required],
-            email: ['', Validators.required],            
-            telephone: ['', Validators.required],
-            motdepasse: ['', [Validators.required, Validators.minLength(6)]],
-            // adresses: this.formBuilder.group({
-            //      'rue': [''],
-            //      'ville': [''],
-            //      'codePostale': ['']
-            //  }),
-            
-        });
+        
     }
 
     // convenience getter for easy access to form fields
@@ -55,6 +58,7 @@ export class RegisterComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
         console.log("REGISTOR FORM VALUE",this.registerForm.value)
+        this.clients.push(this.registerForm.value);
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;

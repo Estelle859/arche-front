@@ -27,6 +27,12 @@ export class ArticleService {
   getArticleById(id: number): Observable<Article> {
     return this.http.get<Article>(this.url + '/' +id);
   }
+  // update article stock
+  updateArticleStock(prodid: number, qte: number): Observable<any> {    
+    console.log("updateStock",prodid,' ',qte);
+    return this.http.put(this.url+'/'+prodid,qte);
+  }
+
 
   filteredListOptions() {
     let articles = this.articlesData;
@@ -40,4 +46,5 @@ export class ArticleService {
         }
         return filteredPostsList;
   }
+
 }

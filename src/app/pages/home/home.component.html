@@ -8,7 +8,7 @@
   <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
 </div> 
 <div>
-  <h2 style="text-align:center">Selected Books</h2>
+  <h2 style="text-align:center">LIVRE CINÉMA</h2>
   <div class="articles-menu">
     <a *ngFor="let article of articles" >
         {{article.titre}}
@@ -16,7 +16,7 @@
               width="150px" alt="Image"> 
         <p class="card-text "> {{article.prixUnitaire}}€</p> 
       <button class="btn btn-primary" type="submit" routerLink="/detail/{{article.id}}">
-        ajouter au panier
+        Détail
       </button>
     </a>       
   </div> 

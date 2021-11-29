@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { LignePanier } from 'src/app/interfaces/ligne-panier';
 import { Panier } from 'src/app/interfaces/panier';
 import { map } from 'rxjs/operators';
@@ -15,6 +15,10 @@ import { Client } from 'src/app/interfaces/client';
 })
 
 export class PanierService {
+
+  private cartCount = new ReplaySubject<number>(1);
+  cartCount$ = this.cartCount.asObservable();
+
   subscribe(arg0: (status: any) => void) {
     throw new Error('Method not implemented.');
   }
@@ -26,6 +30,7 @@ export class PanierService {
   article:Article;
   public cartItems:LignePanier[] = [];
   public cart:Panier={};
+
 
   constructor() { }
 
@@ -67,7 +72,7 @@ export class PanierService {
     // }
   }
    
-   saveCart() {
+  saveCart() {
     //save cart in session storage
     sessionStorage.setItem("myCart",JSON.stringify(this.cart));
     //sessionStorage.setItem(this.cart?.id?.toString()||'', JSON.stringify(this.cart));    
@@ -94,7 +99,7 @@ export class PanierService {
     location.reload();
   
   }
-  updateQuantity(inputId:number, event:any){
+  updateQuantity(inputId:any, event:any){
     var inputValue:number = event.target.value;
     let cartlineJSON:any
     cartlineJSON = JSON.parse( sessionStorage.getItem(inputId.toString()) || "");
@@ -126,8 +131,10 @@ export class PanierService {
       });
        return total;
     }
-
-
-
-
+    //to set a new count 
+    setCartCount(count: number) {   
+      sessionStorage.setItem("cart_count", JSON.stringify(count));
+      this.cartCount.next(count);
+    }
+    
 }
